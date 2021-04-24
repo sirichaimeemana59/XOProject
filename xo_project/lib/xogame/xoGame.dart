@@ -6,9 +6,6 @@ class XOGame extends StatefulWidget {
 }
 
 class _XOGameState extends State<XOGame> {
-  int get i => null;
-  int get j => null;
-
   //setState
   void initState() {
     //Get State
@@ -70,77 +67,86 @@ class _XOGameState extends State<XOGame> {
         child: Container(
           color: Colors.blue.shade500,
           //padding: EdgeInsets.all(4),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  buildChannel(item, data),
-                ],
-              ),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: buildRowChannel(item),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget buildChannel(item, data) => GestureDetector(
+  List<Widget> buildRowChannel(int row) {
+    // ignore: deprecated_member_use
+    List<Widget> listWidget = List();
+    for (int rol = 0; rol <= row; rol++) {
+      for (int col = 0; col <= 3; col++) {
+        // ignore: unused_local_variable
+        Widget widget = buildChannel(row, col);
+        //print("Rol $rol Col $col Status");
+      }
+      listWidget.add(widget);
+    }
+    //print(data);
+    return listWidget;
+  }
+
+  Widget buildChannel(int row, int col) => GestureDetector(
         //onTap: () => onChannelPressed(row, col),
         child: Column(
           children: [
-            //for (int i = 0; i < item; i++)
-              //for (int j = 0; j < 3; j++)
-                //Text(data[i][j].toString()),
-
-                Container(
-                    margin: EdgeInsets.all(2),
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                        color: getBackgroundChannelFromStatus(data[2]),
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(1),
-                            topRight: Radius.circular(1),
-                            bottomLeft: Radius.circular(1),
-                            bottomRight: Radius.circular(1))),
-                    child: Icon(getIconFromStatus(data[2]),
-                        size: 60, color: Colors.blue.shade900)),
+           // Text(col.toString()),
+            Container(
+                margin: EdgeInsets.all(2),
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                    //color: getBackgroundChannelFromStatus(col),
+                   ),
+                //child: Icon(getIconFromStatus(col),
+                    //size: 60, color: Colors.blue.shade900)
+                    ),
           ],
         ),
       );
 
-  IconData getIconFromStatus(int status) {
-    //print("XO $status");
-    if (status == 1) {
-      return Icons.close;
-    } else if (status == 2) {
-      return Icons.radio_button_unchecked;
-    }
-    return null;
-  }
+  // IconData getIconFromStatus(int status) {
+  //   //print("XO $status");
+  //   if (status == 1) {
+  //     return Icons.close;
+  //   } else if (status == 2) {
+  //     return Icons.radio_button_unchecked;
+  //   }
+  //   return null;
+  // }
 
-  Color getBackgroundChannelFromStatus(int status) {
-    //print(status);
-    if (status == 1) {
-      return Colors.blue.shade200;
-    } else if (status == 2) {
-      return Colors.blue.shade200;
-    }
-    return Colors.blue.shade100;
-  }
-  //End Render Table
+  // Color getBackgroundChannelFromStatus(int status) {
+  //   //print(status);
+  //   if (status == 1) {
+  //     return Colors.blue.shade200;
+  //   } else if (status == 2) {
+  //     return Colors.blue.shade200;
+  //   }
+  //   return Colors.blue.shade100;
+  // }
+  // //End Render Table
 
-  //Event click
-  onChannelPressed(int row, int col) {
-    if (channelStatus[row][col] == NONE) {
-      setState(() {
-        channelStatus[row][col] = VALUE_X;
-      });
-    }
-  }
+  // //Event click
+  // onChannelPressed(int row, int col) {
+  //   if (channelStatus[row][col] == NONE) {
+  //     setState(() {
+  //       channelStatus[row][col] = VALUE_X;
+  //     });
+  //   }
+  // }
   //End Evet
 }
