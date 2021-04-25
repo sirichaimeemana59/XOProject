@@ -12,10 +12,10 @@ class _XOGameState extends State<XOGame> {
   static const int VALUE_O = 2;
 
   List<List<int>> channelStatus = [
-    [VALUE_X, NONE, VALUE_X],
-    [NONE, VALUE_X, NONE],
-    [VALUE_X, NONE, VALUE_X],
-    [VALUE_X, NONE, VALUE_X],
+    [VALUE_O, NONE, VALUE_O],
+    [VALUE_X, VALUE_O, VALUE_O],
+    [VALUE_X, NONE, VALUE_O],
+    [VALUE_X, VALUE_O, NONE],
   ];
 
   //End valiable
@@ -49,27 +49,39 @@ class _XOGameState extends State<XOGame> {
   }
 
 //List table
+  // ignore: missing_return
   List<Container> buildGrideList(int count) {
-    //var newList = channelStatus.expand((x) => x).toList();
-    return List.generate(
-        count,
-        (index) => Container(
-              margin: EdgeInsets.all(3),
-              decoration: BoxDecoration(
-                  color: Colors.blue.shade700,
-                  borderRadius: BorderRadius.all(Radius.circular(3))),
-              padding: EdgeInsets.all(2),
-              child: Column(
-                children: [
-                  Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(getIconFromStatus(1), size: 60),
-                      ])
-                ],
-              ),
-            ));
+    var newList = channelStatus.expand((x) => x).toList();
+    for (int rol = 0; rol <= count; rol++) {
+      return List.generate(
+          count,
+          (index) => Container(
+                margin: EdgeInsets.all(3),
+                decoration: BoxDecoration(
+                    color: Colors.blue.shade700,
+                    borderRadius: BorderRadius.all(Radius.circular(3))),
+                padding: EdgeInsets.all(2),
+                // ignore: deprecated_member_use
+                child: RaisedButton(
+                  onPressed: () {
+                    //print('$index');
+                    onChannelPressed(index);
+                  },
+                  child: Column(
+                    children: [
+                      Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            //Text('${newList[index]}+$index'),
+                            //Text(channelStatus[rol].length.toString()),
+                            Icon(getIconFromStatus(newList[index]), size: 60),
+                          ])
+                    ],
+                  ),
+                ),
+              ));
+    }
   }
 
 //Check ICON in Column
@@ -84,4 +96,15 @@ class _XOGameState extends State<XOGame> {
   }
 
 //End Check ICON in Column
+
+//Event slect
+  onChannelPressed(int col) {
+    if (channelStatus[col][col] == NONE) {
+      setState(() {
+        channelStatus[col][col] == VALUE_X;
+      });
+    }
+    // print(col);
+  }
+//End event
 }
