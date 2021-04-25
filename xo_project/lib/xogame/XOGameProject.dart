@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class XOGame extends StatefulWidget {
+class XOGame1 extends StatefulWidget {
   @override
-  _XOGameState createState() => _XOGameState();
+  _XOGame1State createState() => _XOGame1State();
 }
 
-class _XOGameState extends State<XOGame> {
+class _XOGame1State extends State<XOGame1> {
   //Set Valiable demo
   static const int NONE = 0;
   static const int VALUE_X = 1;
@@ -65,6 +65,7 @@ class _XOGameState extends State<XOGame> {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Text('toey'),
                         Icon(getIconFromStatus(1), size: 60),
                       ])
                 ],
